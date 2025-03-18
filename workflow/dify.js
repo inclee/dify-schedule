@@ -30,6 +30,7 @@ class WorkflowTask extends Task {
         console.error('DIFY_INPUTS 格式错误，请确保是json格式, 可能会影响任务流执行')
       }
       const user = 'dify-schedule'
+      console.log(`Dify工作流【${this.dify.token}】开始执行...`)
       const workflow = new WorkflowClient(this.dify.token, env.DIFY_BASE_URL);
       console.log(`正在获取Dify工作流基础信息...`)
       const info = await workflow.info(user);
@@ -48,6 +49,7 @@ async function run(args) {
     const tokens = env.DIFY_TOKENS.split(';');
     let messageList = [];
     for (let token of tokens) {
+    console.log(`Dify 获取Token【${token}】...`)
       const workflow = new WorkflowTask({token});
 
       await workflow.run(); // 执行
